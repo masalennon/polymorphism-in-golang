@@ -9,18 +9,19 @@ type income interface {
 }
 
 type toyota struct {
-    age, workingYear, baseSalary int
-    performance                  int
+    workingYear, baseSalary, performance int
 }
 
 type google struct {
-    age, workingYear, baseSalary int
-    performance                  int
+    workingYear, baseSalary, performance int
 }
 
 type sony struct {
+    workingYear, baseSalary, profit int
+}
+
+type yahoo struct {
     age, workingYear, baseSalary int
-    performance                  int
 }
 
 func (t toyota) calculate() int {
@@ -32,29 +33,34 @@ func (g google) calculate() int {
 }
 
 func (s sony) calculate() int {
-    return s.baseSalary + (10 * s.performance) + (s.workingYear * 100)
+    return s.baseSalary + (500 * s.profit) + (s.workingYear * 100)
 }
 
-func main() { //ポリモーフィズムを使った例
+func (y yahoo) calculate() int {
+    return  y.baseSalary + (20000 * y.workingYear)
+}
+
+func main() {
     taro := toyota{
-        age:         33,
         workingYear: 10,
         baseSalary:  250000,
         performance: 80,
     }
     hanako := google{
-        age:         28,
         workingYear: 5,
         baseSalary:  100000,
         performance: 190,
     }
     ichiro := sony{
-        age:         40,
         workingYear: 15,
         baseSalary:  300000,
-        performance: 130,
+        profit: 100,
     }
-    workers := []income{taro, hanako, ichiro}
+    motoko := yahoo{
+        baseSalary: 40000,
+        workingYear: 25,
+    }
+    workers := []income{taro, hanako, ichiro, motoko}
     fmt.Printf("Total income: %d\n", calculateIncome(workers))
 }
 
